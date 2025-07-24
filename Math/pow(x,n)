@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+
+/*
+Problem Statement:
+------------------
+Implement the function pow(x, n), which calculates x raised to the power n (x^n).
+
+Constraints:
+- x is a double
+- n is an integer (can be negative)
+
+Examples:
+---------
+pow(2.0, 10) = 1024.0
+pow(2.0, -2) = 0.25
+pow(0.0, 5) = 0.0
+
+Approach:
+---------
+Use **Binary Exponentiation** (Exponentiation by Squaring):
+1. If n is 0 => return 1.
+2. If n is negative => invert x (1/x) and make n positive.
+3. While n > 0:
+   - If n is odd, multiply result by x.
+   - Square x and divide n by 2.
+4. Return the result.
+
+Time Complexity: O(log n)
+*/
+
+double myPow(double x, int n) {
+    long long power = n; // convert to long long to handle INT_MIN
+    if (power < 0) {
+        x = 1 / x;
+        power = -power;
+    }
+
+    double result = 1.0;
+
+    while (power > 0) {
+        if (power % 2 == 1) {
+            result *= x;
+        }
+        x *= x;
+        power /= 2;
+    }
+
+    return result;
+}
+
+int main() {
+    double x;
+    int n;
+    cout << "Enter base (x): ";
+    cin >> x;
+    cout << "Enter exponent (n): ";
+    cin >> n;
+
+    cout << "Result: " << myPow(x, n) << endl;
+
+    return 0;
+}
